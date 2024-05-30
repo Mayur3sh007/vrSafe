@@ -1,0 +1,26 @@
+1]  Create a Next JS app with shadcn
+2] Setup global settings, tailwind config , layout.tsx for app folder that contains all the fonts,styles,colours
+
+
+                                     /* Route Groups */
+   As we know File System based routing is done in Next.JS
+   And we gonna use diff layouts for diff kinda pages hence we need route groups
+   In the app directory, nested folders are normally mapped to URL paths.
+   However, you can mark a folder as a Route Group to prevent the folder from being included in the route's URL path.
+   
+
+3] create a (root) folder to create a route group in app dir
+   Within that make page.tsx & and 
+   layout.tsx   --> This layout will contain the Sidebar and remaining children components and also nothing related to 
+
+4] Similarly (auth) folder that will have its own layout.tsx  --> This wont have sidebar as we dont need it for signup/login
+
+*** Now we have got a main layout.tsx in app dir which has all the texts,fonts,colours for everything
+    We got Seperate layouts for main pages & Signup pages that have or dont have specific components
+
+5]  Create sign-up & sign-in folders within auth and within them create their own page.tsx
+
+*** So how our url works now is http://localhost:3000/sign-in or http://localhost:3000/sign-up 
+    & NOT http://localhost:3000/auth/sign-in is because of the route group we used while creating (auth) folder
+    hence its not included in path url
+
