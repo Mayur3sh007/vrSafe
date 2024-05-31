@@ -2,7 +2,7 @@
 2] Setup global settings, tailwind config , layout.tsx for app folder that contains all the fonts,styles,colours
 
 
-                                     /* Route Groups */
+                                                 /* Route Groups */
    As we know File System based routing is done in Next.JS
    And we gonna use diff layouts for diff kinda pages hence we need route groups
    In the app directory, nested folders are normally mapped to URL paths.
@@ -24,3 +24,35 @@
     & NOT http://localhost:3000/auth/sign-in is because of the route group we used while creating (auth) folder
     hence its not included in path url
 
+                    ***** Implemented File & Folder Structure  *****
+
+
+
+6] Now we create a HeaderBox.tsx in components folder & update the page.tsx of root to get this HeaderBox as a component there as pass props to this component to use it
+
+7] Now we create new component TotalBalanceBox.tsx
+
+   While showing the account Balance in terms of Indian Ruppes we used a utils.ts file which needs query-string package 
+   so download it for query params needed later on 
+
+   
+   ### So to show special effect while displaying balance we use <<< react-countup >>> package so just npm i it
+
+  But now as we use it in TotalBalanceBox.tsx we get this 
+  !!! RUNTIME error !!!
+  Error: useRef only works in Client Components. Add the "use client" directive at the top of the file to use it. 
+  Read more: https://nextjs.org/docs/messages/react-client-hook-in-server-component
+
+  Sometimes external packages use client side functionalities whithin themselves 
+  & as our all components in NEXT.js ie in this file are server side by deafult, until we specify them to be client
+  Therefore this conflict arises
+
+  So just create a new seperate component for this animation component
+
+  Similarly
+
+  ### We gonna need Charts
+8] We npm i chartjs and react-chartjs-2 and create a new component DoughnutChart.tsx 
+   and start creating the component while adding it in our (root) page.tsx
+
+                                    /* Added 4 new Components */
