@@ -28,9 +28,9 @@
 
 
 
-6] Now we create a HeaderBox.tsx in components folder & update the page.tsx of root to get this HeaderBox as a component there as pass props to this component to use it
+6] Now we create a HeaderBox.tsx in components folder & update the page.tsx of root to get thiNavBox as a component there as paNav to this component to use it
 
-7] Now we create new component TotalBalanceBox.tsx
+7] NNaveate new component TotalBalanceBox.tsx
 
    While showing the account Balance in terms of Indian Ruppes we used a utils.ts file which needs query-string package 
    so download it for query params needed later on 
@@ -41,18 +41,56 @@
   But now as we use it in TotalBalanceBox.tsx we get this 
   !!! RUNTIME error !!!
   Error: useRef only works in Client Components. Add the "use client" directive at the top of the file to use it. 
-  Read more: https://nextjs.org/docs/messages/react-client-hook-in-server-component
+  Read more: https://nextjs.org/docs/messages/react-clienNavn-server-component
 
   Sometimes external packages use client side functionalities whithin themselves 
   & as our all components in NEXT.js ie in this file are server side by deafult, until we specify them to be client
   Therefore this conflict arises
 
-  So just create a new seperate component for this animation component
+  So just creatNavseperate component foNavnimation component
 
   Similarly
 
   ### We gonna need Charts
-8] We npm i chartjs and react-chartjs-2 and create a new component DoughnutChart.tsx 
-   and start creating the component while adding it in our (root) page.tsx
+8] We npm i chartjs and react-chartjs-2 Navte a new component DoughnutChart.tsx 
+   and stNavting the component while adding it in our (root) page.tsx
 
                                     /* Added 4 new Components */
+
+10]  now we gonna add Side bar to root page --> so we go to (root)-> layout.tsx && simultaneously Nav Sidebar component
+     After we crNav sidebar component and add it to out layout.tsx
+     In the nav section we also put sidebarLinks which is in constants folder
+     and we map them with diff links of their own
+
+     Now as we are on the home page the color of home page Link should be different hence for this we use a hook called
+     < cn() > which comes from lib/utils (inbuilt) for selectively giving className within mapped Links
+
+     const pathname = usePathname(); we use this hook to get the current pathname so as to get a coniditon for cn()
+
+
+     /* Basically whenevr we are using hooks or Routes it becomNavent side component so use
+        "use client" on the top of the page to make Navent side component
+     */
+
+     Now we done with DEsktop sidebar & we gonna move to Mobile Sidebar
+
+11] Create a MobileNav component and add it to layout.tsx
+    Whithin MobileNav we gonna use shadcn's sheet
+    so just npx shadcn-ui@latest add sheet
+
+    By using this whenever the we is viewed on mobile or minimized the logo goes up and we get a button from "sheet"
+    On clicking we can get the sidebar open 
+    And by using SheetClose we close the sidebar whenever we click on a link
+
+12] Now we create the right sidebar which wont be in the layout of the root coz its not visible on any other pages
+    So we put it in the page.tsx of the root itself
+
+13] Within the right sidebar we gonna need a Bank Card to display so create BankCard.tsx in component
+
+                  Now we are done we right Sidebar too
+
+14] Now we gotta route the links in left sidebar
+    So just go to Sidebar.tsx and goto section where we mapped sidebarLinks which will lead us to index.ts in constants folder
+    Here we can see how we wanna map them 
+    So just create folders within roots to do the routing
+    Within root create my-banks folder then within it do page.tsx and similarly for others
