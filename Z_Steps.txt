@@ -94,3 +94,42 @@
     Here we can see how we wanna map them 
     So just create folders within roots to do the routing
     Within root create my-banks folder then within it do page.tsx and similarly for others
+
+                                    /* Done with Root-Page */
+
+15] We begin with (auth) pages now
+    As we need to use same form in both sin-up & sign-in we create a new component called AuthForm
+    and call this component in sign-in & sign-up both and 
+    pass a type="sign-in" or "sign-up" to differentiate between them in AuthForm
+
+16] Now we create a form with Shadcn  form
+
+    As we need multiple input fileds for the form I am creating a seperate inputField component
+
+    Now as we need the formSchema we used in AuthForm in this CustominputField too so we just 
+    Cut it from there and add it to our utils with the name AuthFormSchema
+
+    For the loading screen between form submit & form actions after submission we use Loader from Lucid-reacts
+
+17] As we have added more input fields for Signup form 
+    We have to update it in utils too for zod but what happens is if we just add all the fields in AuthFormSchema
+    Even when we are tryna signin zod will try to check for all the fields in signup too
+    So we use pass a type in AuthFormSchema so that we can conditionally mention the fields there
+
+    Now we have to update the AuthFormSchema we mentioned in AuthForm.tsx and make it a fucntion to pass the type
+    const formSchema = AuthFormSchema(type);
+    & now pass this formSchema wherever we have used it B4
+
+    Similarly     const formSchema = AuthFormSchema('sign-up');
+    in CustomInputField.tsx and replace ...
+
+                    /* We are done with Form Interface and validating that correct data is enetered with zod */
+
+18] Now we move onto what happens onSubmit in Authform
+
+19] Now we need Server actions for signin & signup
+    Server Actions are asynchronous functions that are executed on the server.
+    They can be used in Server and Client Components to handle form submissions and data mutations in Next.js applications
+
+    create a actions folder within lib
+

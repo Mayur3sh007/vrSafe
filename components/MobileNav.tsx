@@ -34,6 +34,7 @@ const MobileNav = () => {
         {/* For this sheet content we basically copy everything from the Sidebar with few adjustments*/}
         <SheetContent side="left" className="border-none bg-white">
 
+          {/* Logo with link to homepage */}
           <Link
             href="/"
             className='cursor-pointer items-centre gap-1 flex px-4'
