@@ -133,3 +133,21 @@
 
     create a actions folder within lib
 
+20] Now we gonna need to actually aithenticate using appwrite
+    So just goto appwrite and create a project there and get the id
+    and create .env file as post evrything there 
+    Once done with appwrite,its collections & attributes
+
+21] Server-side Auth is the next step
+    Create a new file called appwrite.ts in lib & copy file from nextjs-ssr-auth page in their docs
+    and install all the packages we need in that file 
+    and modify based on our requirements
+
+22]  Next step is to get the logged in user so just goto user.actions.ts fie we created & 
+     copy the function from docs there & modify acc to our specs 
+
+23] Then copy of part of signup code from the next step of doc && then paste it in our reviously created user.actions
+    modfiy it acc to our specs
+
+    Now we are Done with signup function
+    Now goto AuthForm to use this funcs we created & check if the function works on our website

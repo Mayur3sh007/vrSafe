@@ -47,8 +47,8 @@ const AuthForm = ({ type }: { type: string }) => {
             
             //Signup with appwrite & plaid token
             if(type === 'sign-up'){
-                // const newUser = await signUp(data);
-                // setUser(newUser)
+                const newUser = await signUp(data);
+                setUser(newUser)
             }
 
             if(type === 'sign-in'){
@@ -68,13 +68,13 @@ const AuthForm = ({ type }: { type: string }) => {
     }
 
     return (
-        <section className='auth-form'>
+        <section className='auth-form'>     
             <header className='flex flex-col gap-5 md:gap-8'>
 
                 {/* Logo with link to homepage */}
                 <Link
                     href="/"
-                    className='cursor-pointer items-centre gap-1 flex'
+                    className='cursor-pointer items-center gap-1 flex'
                 >
                     <Image
                         src="/icons/logo.svg"
