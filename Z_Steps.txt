@@ -181,4 +181,7 @@
 
                                         /* Done with Auth */
 
-                                        
+28] Now we create sentry acc and npx @sentry/wizard@latest -i nextjs
+    Now we get all the sentry files
+    check the sentry example page
+    then delete it & gobal errors
