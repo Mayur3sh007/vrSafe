@@ -61,3 +61,13 @@ export async function getLoggedInUser() {
         return null;
     }
 }
+
+export const logOutUser = async()=>{
+    try {
+        const {account} = await createSessionClient();
+        cookies().delete('appwrite-session');
+        await account.deleteSession('current')
+    } catch (error) {
+        return 'Error ouccured while logging out or U were never logged-In'
+    }
+}

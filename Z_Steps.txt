@@ -159,3 +159,26 @@
 
 25] Now start the sign-in func ---> goto user.actions.ts create complete the signin func and goto Authform to Call this func 
     Now we are done with it too
+
+26] Now we create a logout button in actions.ts
+
+
+27]  Now we gonna create a new component called Footer.tsx which will contain our logout button
+    which will be called in Sidebar & Mobile-nav
+    Also update the dummy loggedIn data in root layout with real data we get from previously created 
+    getloggedInuser()
+
+
+
+                                                /******************/
+  //If we use router we need to make the comp client side but swe dont wanna do that so.. use redirect() from next-nav
+  // const router = useRouter();
+  // const loggedInUser = await getLoggedInUser();
+  // if(!loggedInUser) router.push('/sign-in')
+
+  const loggedInUser = await getLoggedInUser();
+  if(!loggedInUser) redirect('/sign-in')
+
+                                        /* Done with Auth */
+
+                                        
