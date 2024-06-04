@@ -151,3 +151,11 @@
 
     Now we are Done with signup function
     Now goto AuthForm to use this funcs we created & check if the function works on our website
+
+24] Now as our Signup works correctly we gonna get the loggedIn user data
+    so goto Signup page in (auth) & call this func
+
+    Ok now remove this func once we have checked if it works
+
+25] Now start the sign-in func ---> goto user.actions.ts create complete the signin func and goto Authform to Call this func 
+    Now we are done with it too
