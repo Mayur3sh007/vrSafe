@@ -184,4 +184,43 @@
 28] Now we create sentry acc and npx @sentry/wizard@latest -i nextjs
     Now we get all the sentry files
     check the sentry example page
-    then delete it & gobal errors
+    then delete it & global errors
+    With sentry we can how the user got an error on our website
+
+29] Now we gotta start with Plaid
+    Plaid acts as a Middle Man between our App & Banks securing the sensitive data so we dont have to
+
+    Get all the keys in .env & npm i react-plaid-link plaid
+    create plaid.ts in lib to configure plaid Client which can be used to make API calls to plaid
+
+30] Now goto Authform where we left space for plaid link & actually create a new component PlaidLink.tsx to put there
+    Now in PlaidLink comp we need 2 new actions so goto user.actions.ts to create 2 new actions 
+    1 to create plaidLink & other to exchange public token
+
+    //* Working of Plaid tokens & links *//
+    A token is required to initialize our PlaidLink client component
+    1] We create a Link token
+    2] Pass generated link token to plaid link 
+        THis starts process of connecting Bank acc through plaid link 
+    3] Plaid Link provides temp Public token which will be exchanged for Permanent acess token
+    4] Exchange access token to get Bank details
+    5] Now we a processor token for our payment processor named Dwolla
+
+31] Now create dwolla.actions.ts in actions folder for Dwolla -->This is the copy-paste code which was given to us by dwolla
+    Coz its a opensource software->Its meant to be used that way
+
+    /* Plaid was to get data needed fro Transaction & Dwolla is a Transaction  which uses that data to do Transaction */
+
+32] Now goto user.actions.ts to create a createBankAccounts server action for exchangeToken action
+
+33] Now we have to create a schema for Bank Accounts too in Appwrite so goto Appwrite web & create Bank schema
+
+34] Now goto SignUp action in user.actions to add the new System of 
+    Creating User account with 
+    1] User entered data
+    2] Appwrite DatabaseID & url
+    3] Dwolla Id & url
+    Then updated the Signup func in AuthForm.tsx
+
+35] Now create a dwolla sandbox acc
+    get key & url key
