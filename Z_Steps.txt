@@ -224,3 +224,20 @@
 
 35] Now create a dwolla sandbox acc
     get key & url key
+
+    /* Done with Plaid & Dwolla */
+
+36] Now goto Plaid and then under Developers --> Integrations --> Enable Dwolla
+    This will enable us to authenticate users via dwolla on plaid
+
+37] Now click on connect Bank after signing in then connect bank acc with 
+    name:- user_good
+    pass:- password_good
+
+38] Now we are on home page  -->(root)/page.tsx
+    So now we wanna fetch all the bank data on home page so create bank.actions
+    and copy paste code from github
+
+    And create 2 server actions for banks in user.actions
+
+39] After getting this done we now focus on root page & add its components for transaction etc
