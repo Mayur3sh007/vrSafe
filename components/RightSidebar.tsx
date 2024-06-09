@@ -2,8 +2,14 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import BankCard from './BankCard'
+import { countTransactionCategories } from '@/lib/utils'
+import Category from './Category'
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
+
+    const categories : CategoryCount[] = countTransactionCategories(transactions);
+    console.log(categories)
+
     return (
         <aside className='right-sidebar'>   {/** This right sidebar css makes it such that right sidebar is only visible for larger devices and for smaller devices it stays "hidden"  */}
 
@@ -69,6 +75,20 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
                         )}
                     </div>
                 )}
+
+                <div className='mt-10 flex flex-col  flex-1 gap-6'>
+                    <h2 className='header-2'>
+                        Top Categories
+                    </h2>
+
+                    <div className='space-y-5'>
+                        {categories.map((category,index)=>(
+                            <Category key={category.name} category = {category}/>
+                        ))}
+                    </div>
+
+                </div>
+
             </section> 
 
         </aside>

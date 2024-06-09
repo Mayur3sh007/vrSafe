@@ -21,6 +21,7 @@ const Transfer = async () => {
         subtext="Please provide any specific details or notes related to the payment transfer"
       />
 
+{/* The reason we arent writing the form here is that then this page would have to be Client side */}
       <section className="size-full pt-5 pb-0">
         <PaymentTransferForm accounts={accountsData} />
       </section>
