@@ -241,3 +241,9 @@
     And create 2 server actions for banks in user.actions
 
 39] After getting this done we now focus on root page & add its components for transaction etc
+
+
+
+
+    Figure out rest of the shit but in Payment Transfer form the process of payment transfer from 1 acc to another
+    is to be looked at last along with transaction.actions.ts
