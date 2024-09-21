@@ -32,13 +32,22 @@ export const getUserInfo = async ({ userId }: getUserInfoProps) => {
   }
 }
 
-export const signIn = async ({ email, password }: signInProps) => {
+export const signIn  = async ({ email, password }: signInProps) => {
   try {
-    const { account } = await createAdminClient();
+    const { account, database } = await createAdminClient();
+
+    const user = await database.listDocuments(
+      DATABASE_ID!,
+      USER_COLLECTION_ID!,
+      [Query.equal('email', [email])]
+    );
+
+    if (user.total === 0) {
+      alert("User not found. Please check your email or sign up.");
+    }
 
     const session = await account.createEmailPasswordSession(email, password);
 
-    //this session name should be same as the one we gave in appwrite file
     cookies().set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
@@ -46,42 +55,45 @@ export const signIn = async ({ email, password }: signInProps) => {
       secure: true,
     });
 
-    const user = await getUserInfo({ userId: session.userId })
-
-    return parseStringify(user)
+    return parseStringify(user.documents[0]);
 
   } catch (error) {
-    console.error('Error', error)
+    console.error('Error', error);
+    throw error; // Re-throw the error to be handled by the caller
   }
 }
 
-export const signUp = async ({ password, ...userData }: SignUpParams) => {  //make the params needed for signup optional
-
-  const { email, firstName, lastName } = userData;
+export const signUp = async ({ password, ...userData }: SignUpParams) => {
+  const { email, firstName, lastName, state } = userData;
   let newUserAccount;
 
   try {
+    // Validate state
+    if (!isValidState(state)) {
+      alert('Invalid state. Please provide a 2-letter state abbreviation.');
+    }
+
     const { account, database } = await createAdminClient();
 
-    newUserAccount = await account.create(  //user created & stored in session
+    newUserAccount = await account.create(
       ID.unique(),
       email,
       password,
       `${firstName} ${lastName}`
     );
 
-    if (!newUserAccount) throw new Error('Error creating user')
+    if (!newUserAccount) throw new Error('Error creating user');
 
     const dwollaCustomerUrl = await createDwollaCustomer({
       ...userData,
       type: 'personal'
-    })
+    });
 
-    if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer')
+    if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer');
 
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
 
-    const newUser = await database.createDocument(  //user stored in DB
+    const newUser = await database.createDocument(
       DATABASE_ID!,
       USER_COLLECTION_ID!,
       ID.unique(),
@@ -91,11 +103,10 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {  //ma
         dwollaCustomerId,
         dwollaCustomerUrl
       }
-    )
+    );
 
     const session = await account.createEmailPasswordSession(email, password);
 
-    //this session name should be same as the one we gave in appwrite file
     cookies().set("appwrite-session", session.secret, {
       path: "/",
       httpOnly: true,
@@ -103,12 +114,18 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {  //ma
       secure: true,
     });
 
-    return parseStringify(newUser);   //this is a utils func we created which json.parse & json.stringify on user obj
-    // Coz in nextjs we cannot pass large user obj as it is we need to stringify it
+    return parseStringify(newUser);
 
   } catch (error) {
-    console.error('Error', error)
+    console.error('Error', error);
+    throw error; // Re-throw the error to be handled by the caller
   }
+}
+
+// Helper function to validate state
+function isValidState(state: string): boolean {
+  const stateRegex = /^[A-Z]{2}$/;
+  return stateRegex.test(state);
 }
 
 export async function getLoggedInUser() {

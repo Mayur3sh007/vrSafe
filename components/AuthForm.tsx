@@ -1,5 +1,3 @@
-"use client"
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -7,12 +5,6 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import {
     Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
 } from "@/components/ui/form"
 
 import Link from 'next/link'
@@ -45,21 +37,22 @@ const AuthForm = ({ type }: { type: string }) => {
         setIsLoading(true);
 
         try {
-
+            
             //Signup with appwrite & plaid token
             if (type === 'sign-up') {
                 const userData = {
                     firstName: data.firstName!,
                     lastName: data.lastName!,
                     address1: data.address1!,
-                    city: data.city!,
-                    state: data.state!,
-                    postalCode: data.postalCode!,
-                    dateOfBirth: data.dateOfBirth!,
-                    ssn: data.ssn!,
+                    city: "New York City",
+                    state: "NY",
+                    postalCode: "12345",
+                    dateOfBirth: "2004-07-22",
+                    ssn: "1234",
                     email: data.email,
                     password: data.password
                 }
+                console.log(userData)
                 const newUser = await signUp(userData);
                 setUser(newUser)
             }
@@ -145,7 +138,7 @@ const AuthForm = ({ type }: { type: string }) => {
                                         <CustomInputField control={form.control} name='city' label="City" placeholder='Enter your city' />
 
                                         <div className="flex gap-4">
-                                            <CustomInputField control={form.control} name='state' label="State" placeholder='Example: NY' />
+                                            <CustomInputField control={form.control} name='state' label="State" placeholder='Example: MH' />
                                             <CustomInputField control={form.control} name='postalCode' label="Postal Code" placeholder='Example: 11101' />
                                         </div>
 
