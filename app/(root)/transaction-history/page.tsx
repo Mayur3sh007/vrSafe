@@ -15,12 +15,13 @@ const TransactionHistory = async ({ searchParams: { id, page } }: SearchParamPro
   })
 
   if (!accounts) return;
-
+  console.log("Account Found: ", accounts)
   const accountsData = accounts?.data;
+  console.log("Acc Data: ", accountsData)
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
-
+  console.log("Appwrite ID: ", appwriteItemId)
   const account = await getAccount({ appwriteItemId })
-
+  console.log("Particular acc: " , account)
 
   const rowsPerPage = 10;
   const totalPages = Math.ceil(account?.transactions.length / rowsPerPage);
@@ -59,9 +60,15 @@ const TransactionHistory = async ({ searchParams: { id, page } }: SearchParamPro
         </div>
 
         <section className="flex w-full flex-col gap-6">
-          <TransactionsTable
+          {/* <TransactionsTable
             transactions={currentTransactions}
-          />
+          /> */}
+          {currentTransactions ? (
+              <TransactionsTable transactions={currentTransactions} />
+            ) : (
+              <p>No transactions found.</p>
+            )}
+
           
           {totalPages > 1 && (
             <div className="my-4 w-full">

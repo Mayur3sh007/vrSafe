@@ -293,13 +293,14 @@ export const getBanks = async ({ userId }: getBanksProps) => {
 
 export const getBank = async ({ documentId }: getBankProps) => {
   try {
+    console.log("Getting bank ", documentId)
     const { database } = await createAdminClient();
     const banks = await database.listDocuments(
       DATABASE_ID!,
       BANK_COLLECTION_ID!,
       [Query.equal('$id', [documentId])] //so only fetch bank elonging to this user
     )
-
+    console.log("Banks: ", banks.documents[0])
     return parseStringify(banks.documents[0]);
 
   } catch (error) {

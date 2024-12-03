@@ -68,17 +68,20 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
   try {
     // get bank from db
     const bank = await getBank({ documentId: appwriteItemId });
+    console.log("Bank received in getAccount function: ", bank)
 
     // get account info from plaid
     const accountsResponse = await plaidClient.accountsGet({
       access_token: bank.accessToken,
     });
     const accountData = accountsResponse.data.accounts[0];
+    console.log("Account Data in getAccount function: ", accountData)
 
     // get transfer transactions from appwrite
     const transferTransactionsData = await getTransactionsByBankId({
       bankId: bank.$id,
     });
+    // console.log("Transfer Transactions in getAccount function: ", transferTransactionsData)
 
     const transferTransactions = transferTransactionsData.documents.map(
       (transferData: Transaction) => ({
@@ -91,15 +94,18 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
         type: transferData.senderBankId === bank.$id ? "debit" : "credit",
       })
     );
+    console.log("Transactions in getAccount function: ", transferTransactions)
 
     // get institution info from plaid
     const institution = await getInstitution({
       institutionId: accountsResponse.data.item.institution_id!,
     });
+    console.log("Institution in getAccount function: ", institution)
 
-    const transactions = await getTransactions({
-      accessToken: bank?.accessToken,
-    });
+    // const transactions = await getTransactions({
+    //   accessToken: bank?.accessToken,
+    // });
+    // console.log("Transactions in getAccount function: ", transactions)
 
     const account = {
       id: accountData.account_id,
@@ -113,12 +119,12 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
       subtype: accountData.subtype! as string,
       appwriteItemId: bank.$id,
     };
-
+    console.log("Account in getAccount function: ", account)
     // sort transactions by date such that the most recent transaction is first
-    const allTransactions = [...transactions,...transferTransactions]
-    .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    const allTransactions = transferTransactions.sort(
+      (a : any, b : any) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
+    
 
     return parseStringify({
       data: account,

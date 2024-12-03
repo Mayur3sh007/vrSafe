@@ -1,18 +1,26 @@
+// "use client"
 import HeaderBox from '@/components/HeaderBox'
 import RecentTransactions from '@/components/RecentTransactions';
 import RightSidebar from '@/components/RightSidebar';
 import TotalBalanceBox from '@/components/TotalBalanceBox';
 import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Home = async( {searchParams : { id, page } } : SearchParamProps ) => { //In next JS we get the id from searchParams which can be used to identify curr user
+
 
   const currentPage =  Number(page as string) || 1
   const loggedIn = await getLoggedInUser();
   const accounts = await getAccounts({ 
     userId: loggedIn.$id 
   })
+  // console.log("Accounts: ", accounts)
+
+  // useEffect(() => {
+  //   console.log("Accounts: ", accounts)
+  //   console.log("User ID: ", loggedIn.$id)
+  // }, [])
 
   if(!accounts) return;
   
@@ -23,8 +31,11 @@ const Home = async( {searchParams : { id, page } } : SearchParamProps ) => { //I
 
   // console.log({
   //   accountsData,
+  //   appwriteItemId,
   //   account
   // })
+
+  
 
   return (
     <section className='home'> {/* This className home was defined by us in global css */}
